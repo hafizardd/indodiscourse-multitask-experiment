@@ -1,0 +1,32 @@
+name: Experiment or protocol proposal
+description: Propose a documented change to the experiment design.
+title: "experiment: "
+labels: []
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Research question or motivation
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: Proposed protocol change
+      description: Identify affected data, split, model, training, or evaluation steps.
+    validations:
+      required: true
+  - type: textarea
+    id: reproducibility
+    attributes:
+      label: Reproducibility and resource impact
+      description: Include expected runs, seeds, Kaggle runtime needs, and outputs.
+    validations:
+      required: true
+  - type: checkboxes
+    id: data
+    attributes:
+      label: Data handling
+      options:
+        - label: This proposal does not require publishing raw data or credentials.
+          required: true

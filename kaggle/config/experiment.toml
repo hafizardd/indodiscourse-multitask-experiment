@@ -1,0 +1,97 @@
+[experiment]
+slug = "indodiscourse-multitask-experiment"
+status = "planned"
+planned_training_runs = 45
+
+[dataset]
+repo_id = "Exqrch/IndoDiscourse"
+configuration = "main"
+revision = "PIN_HF_COMMIT_BEFORE_RUN"
+proposal_snapshot_rows = 28448
+paper_reported_texts = 28477
+include_annotator_demographics = false
+public_mirror = false
+redistribution_confirmation_required = true
+
+[dataset.sample]
+label_rule = "strict_majority_per_task"
+exclude_unresolved_ties = true
+exclude_empty_text_only_for_label_pair = [0, 0]
+exclude_noise_or_spam_label = false
+group_key_normalization = ["NFKC", "casefold", "strip", "collapse_whitespace"]
+preserve_original_text_for_model = true
+manual_text_cleanup = false
+max_length = 512
+dynamic_padding = true
+
+[model]
+repo_id = "indolem/indobertweet-base-uncased"
+revision = "PIN_HF_COMMIT_BEFORE_RUN"
+training_method = "full_fine_tuning"
+max_length = 512
+dropout = 0.1
+
+[split]
+strategy = "StratifiedGroupKFold"
+folds = 5
+shuffle = true
+random_state = 42
+stratify_on_joint_label_pair = true
+group_column = "group_key"
+same_split_for_all_conditions = true
+
+[training]
+conditions = ["stl_toxicity", "stl_polarization", "mtl_shared_encoder"]
+seeds = [42, 43, 44]
+epochs = 3
+planned_optimizer_updates_per_run = 3729
+microbatch_size = 2
+gradient_accumulation_steps = 8
+effective_batch_size = 16
+precision = "fp16"
+max_grad_norm = 1.0
+class_weights = "inverse_frequency_from_training_fold_only"
+mtl_task_loss = "equal_mean_of_task_losses"
+
+[training.optimizer]
+name = "AdamW"
+learning_rate = 0.00005
+weight_decay = 0.01
+betas = [0.9, 0.999]
+epsilon = 0.00000001
+lr_scheduler = "linear"
+warmup_steps = 0
+
+[reproducibility]
+split_seed = 42
+training_seeds = [42, 43, 44]
+data_order_seed = 31415
+bootstrap_seed = 42
+record_runtime_environment = true
+record_actual_dataset_row_count = true
+record_huggingface_revisions = true
+
+[evaluation]
+prediction_strategy = "out_of_fold"
+primary_metric = "macro_f1_per_task"
+secondary_metrics = ["precision", "recall", "per_class_f1", "confusion_matrix"]
+summary = "mean_and_standard_deviation_over_15_fold_seed_pairs"
+paired_comparison = "mtl_minus_matching_stl"
+
+[evaluation.bootstrap]
+method = "paired_group_bootstrap"
+resamples = 10000
+confidence_level = 0.95
+group_column = "group_key"
+same_resample_for_mtl_and_stl = true
+
+[execution]
+platform = "kaggle_notebooks"
+accelerator = "gpu"
+internet_for_upstream_data = true
+smoke_run_required = true
+smoke_run_included_in_results = false
+batch_resumable = true
+resume_boundary = "completed_run"
+checkpoint_retention = "delete_after_oof_saved"
+output_directory = "/kaggle/working/results"

@@ -1,0 +1,15 @@
+{
+  "id": "YOUR_KAGGLE_USERNAME/indodiscourse-multitask-experiment",
+  "title": "IndoDiscourse Multi-Task Toxicity and Polarization",
+  "code_file": "indodiscourse_mtl.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": "true",
+  "enable_gpu": "true",
+  "enable_internet": "true",
+  "machine_shape": "",
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": [],
+  "model_sources": []
+}

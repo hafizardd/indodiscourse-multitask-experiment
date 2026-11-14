@@ -1,0 +1,26 @@
+name: Bug report
+description: Report a reproducible issue in the experiment scaffold or workflow.
+title: "bug: "
+labels: []
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Describe the problem and expected behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction details
+      description: Include environment, dataset/model revision, and run ID. Do not paste raw dataset text.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: Remove credentials and raw dataset content before sharing.
+    validations:
+      required: false

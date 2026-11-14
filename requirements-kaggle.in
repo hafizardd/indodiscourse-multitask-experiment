@@ -1,0 +1,8 @@
+# Keep the CUDA-enabled PyTorch build supplied by the Kaggle image.
+# Pin resolved versions in requirements-kaggle.txt after the first Kaggle smoke run.
+datasets
+matplotlib
+numpy
+pandas
+scikit-learn
+transformers

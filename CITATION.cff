@@ -1,0 +1,42 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the project and the IndoDiscourse dataset paper."
+title: "IndoDiscourse Multi-Task Experiment"
+version: 0.1.0
+date-released: 2026-11-14
+license: MIT
+repository-code: "https://github.com/hafizardd/indodiscourse-multitask-experiment"
+authors:
+  - family-names: Ardiansyah
+    given-names: Muhammad Hafiz
+keywords:
+  - IndoDiscourse
+  - toxicity detection
+  - polarization detection
+  - multi-task learning
+  - Kaggle
+preferred-citation:
+  type: article
+  title: "A Multi-Labeled Dataset for Indonesian Discourse: Examining Toxicity, Polarization, and Demographics Information"
+  authors:
+    - family-names: Susanto
+      given-names: Lucky
+    - family-names: Wijanarko
+      given-names: Musa Izzanardi
+    - family-names: Pratama
+      given-names: Prasetia Anugrah
+    - family-names: Tang
+      given-names: Zilu
+    - family-names: Akyas
+      given-names: Fariz
+    - family-names: Hong
+      given-names: Traci
+    - family-names: Idris
+      given-names: Ika Karlina
+    - family-names: Aji
+      given-names: Alham Fikri
+    - family-names: Wijaya
+      given-names: Derry Tanti
+  journal: "Findings of the Association for Computational Linguistics: ACL 2025"
+  year: 2025
+  doi: "10.18653/v1/2025.findings-acl.966"
+  url: "https://aclanthology.org/2025.findings-acl.966/"

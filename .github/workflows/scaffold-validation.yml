@@ -1,0 +1,41 @@
+name: scaffold-validation
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate-scaffold:
+    name: validate-scaffold
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Validate TOML and Kaggle metadata
+        run: |
+          python - <<'PY'
+          import json
+          import tomllib
+          from pathlib import Path
+
+          for name in ("pyproject.toml", "kaggle/config/experiment.toml"):
+              with Path(name).open("rb") as stream:
+                  tomllib.load(stream)
+
+          metadata = json.loads(Path("kaggle/kernel-metadata.json").read_text())
+          assert metadata["code_file"] == "indodiscourse_mtl.ipynb"
+          assert metadata["kernel_type"] == "notebook"
+          assert metadata["enable_gpu"] == "true"
+          assert metadata["enable_internet"] == "true"
+          PY
