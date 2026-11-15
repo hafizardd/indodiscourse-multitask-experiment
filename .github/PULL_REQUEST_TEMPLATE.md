@@ -20,3 +20,4 @@ Describe the change and why it is needed.
 - [ ] No raw dataset, credentials, `.env`, checkpoint, or generated result was added.
 - [ ] Data and model sources are cited and their revisions are recorded.
 - [ ] Documentation and configuration match the change.
+- [ ] Each commit contains one small, logically complete change; independent changes use separate commits.

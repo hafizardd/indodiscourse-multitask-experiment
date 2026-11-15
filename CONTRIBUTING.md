@@ -34,6 +34,12 @@ docs(data): explain upstream dataset access
 Use one logical change per commit. Common types are `feat`, `fix`, `docs`,
 `data`, `exp`, `refactor`, `test`, and `chore`.
 
+Commit each small, logically complete modification before starting an
+independent one. Keep each commit limited to the files needed for that change,
+so reviewers can understand its purpose from the diff. A change may touch
+multiple files when they form one coherent unit; split independent changes into
+separate commits instead of bundling them into one large commit.
+
 ## Pull Requests
 
 Fill in the PR template. Include the dataset and model revisions, experiment
