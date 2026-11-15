@@ -1,0 +1,15 @@
+{
+  "id": "YOUR_KAGGLE_USERNAME/indodiscourse-01-eda",
+  "title": "IndoDiscourse 01 - Exploratory Data Analysis",
+  "code_file": "indodiscourse_01_eda.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": "true",
+  "enable_gpu": "false",
+  "enable_internet": "true",
+  "machine_shape": "",
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": [],
+  "model_sources": []
+}
