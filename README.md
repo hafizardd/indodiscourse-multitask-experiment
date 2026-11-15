@@ -3,9 +3,9 @@
 Reproducible Kaggle experiment comparing single-task and multi-task
 IndoBERTweet models for toxicity and polarization detection on IndoDiscourse.
 
-**Status:** repository scaffold only. The notebook and experiment implementation
-will be added in a later phase. This repository does not contain IndoDiscourse,
-model weights, or experiment outputs.
+**Status:** the local first-stage notebook covers EDA, preprocessing, and
+diagnostic feature engineering. Training and evaluation remain planned. This
+repository does not contain IndoDiscourse, model weights, or experiment outputs.
 
 ## Research question
 
@@ -40,23 +40,30 @@ This is full-model fine-tuning, not adapter or PEFT training.
 
 The full configuration is in
 [`kaggle/config/experiment.toml`](kaggle/config/experiment.toml). It records
-the proposal's data-count discrepancy rather than treating either count as a
-hard-coded requirement.
+the pinned dataset revision and planned experiment settings.
 
 ## Dataset access and citation
 
 The dataset is not included in this repository. Use the upstream Hugging Face
-repository as the canonical source and pin a specific revision before running
-the experiment. A public Kaggle mirror is out of scope unless the right to
-redistribute is confirmed. See [`docs/DATA.md`](docs/DATA.md) before obtaining
+repository as the canonical source; the first stage pins its immutable revision.
+A public Kaggle mirror is out of scope unless the right to redistribute is
+confirmed. See [`docs/DATA.md`](docs/DATA.md) before obtaining
 or sharing data.
 
-The proposal snapshot contains 28,448 rows, while the paper and current dataset
-card report 28,477 texts. Record the selected upstream revision and actual row
-count in each run manifest, then explain any remaining difference.
+The current `main` configuration has 28,448 rows; the separate annotator
+configuration has 29, and the dataset-level aggregate is 28,477. The meaning
+of the historical paper/card count remains uncertain.
 
 Please cite both the original IndoDiscourse paper and the dataset page. See
 [`CITATION.cff`](CITATION.cff) and the citation guidance in `docs/DATA.md`.
+
+## Local first stage
+
+Run [`notebooks/01_eda_preprocessing_feature_engineering.ipynb`](notebooks/01_eda_preprocessing_feature_engineering.ipynb)
+locally with Jupyter, pandas, NumPy, and Matplotlib. It downloads the pinned
+main JSONL on first use, verifies its SHA-256, reuses a local cache, and writes
+ignored local data and a schema-bearing manifest. Its saved cells contain no
+outputs. It does not create folds or load a tokenizer or model.
 
 ## Kaggle
 

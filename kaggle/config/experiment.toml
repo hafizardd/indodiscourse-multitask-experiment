@@ -6,12 +6,33 @@ planned_training_runs = 45
 [dataset]
 repo_id = "Exqrch/IndoDiscourse"
 configuration = "main"
-revision = "PIN_HF_COMMIT_BEFORE_RUN"
+revision = "8af8c0f00b05633c05cc41fbd7650178ababc892"
+filename = "indotoxic2024_annotated_data_v2_final.jsonl"
+sha256 = "94bb43546f5040a606a8d842694b7d490df043051377a6580e1e95ad2c7334e7"
+main_rows = 28448
+annotator_config_rows = 29
+dataset_aggregate_rows = 28477
 proposal_snapshot_rows = 28448
 paper_reported_texts = 28477
 include_annotator_demographics = false
 public_mirror = false
 redistribution_confirmation_required = true
+
+[dataset.schema]
+text_id = "string"
+annotators_id = "list[string]"
+text = "string"
+initial_paragraph = "string"
+topic = "string"
+is_noise_or_spam_text = "list[string]"
+related_to_election_2024 = "list[string]"
+toxicity = "list[string]"
+polarized = "list[string]"
+profanity_obscenity = "list[string]"
+threat_incitement_to_violence = "list[string]"
+insults = "list[string]"
+identity_attack = "list[string]"
+sexually_explicit = "list[string]"
 
 [dataset.sample]
 label_rule = "strict_majority_per_task"
