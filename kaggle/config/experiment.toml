@@ -45,9 +45,65 @@ manual_text_cleanup = false
 max_length = 512
 dynamic_padding = true
 
+[notebook_defaults]
+visibility = "private"
+internet = true
+gpu = false
+dataset_sources = false
+raw_cache = "/tmp"
+artifact_handoff = "private_kaggle_notebook_output"
+publish_outputs = false
+runs_completed = false
+
+[notebooks.eda]
+output_scope = "aggregate_reports_and_figures_only"
+analysis_scope = "valid_rows_exploratory_subset"
+tokenizer_only = true
+tokenizer_device = "cpu"
+report_schema_anomalies_by = ["row_index", "column"]
+mask_aggregate_counts_below = 10
+
+[preprocessing]
+strict_schema_validation = true
+strict_binary_task_votes = true
+vote_length_must_match_annotators = true
+malformed_text_policy = "block"
+known_null_text_row_index = 10295
+known_null_text_label_pair = [0, 0]
+strict_majority_per_task = true
+exclude_row_if_either_task_tied = true
+exclude_exact_empty_only_for_pair = [0, 0]
+retain_whitespace_only_text = true
+retain_noise_or_spam = true
+retain_duplicate_rows = true
+preserve_original_text = true
+manual_text_cleanup = false
+slang_lexicon = false
+diagnostic_features_in_training_sample = false
+sample_columns = ["row_id", "text_id", "text", "toxicity_label", "polarized_label", "group_key"]
+raw_cache = "/tmp"
+processed_output = "/kaggle/working/preprocessing"
+
+[feature_extraction]
+tokenizer_repo_id = "indolem/indobertweet-base-uncased"
+tokenizer_revision = "32e28c05b47e33b6675d2670a1745c50a65e987a"
+add_special_tokens = true
+truncation = true
+max_length = 512
+padding = false
+attention_mask = true
+model_input_columns = ["input_ids", "attention_mask"]
+targets_separate = true
+split_metadata_separate = true
+create_folds = false
+block_if_upstream_manifest_not_ready = true
+verify_upstream_artifact_hash = true
+verify_upstream_row_count = true
+output_directory = "/kaggle/working/feature_extraction"
+
 [model]
 repo_id = "indolem/indobertweet-base-uncased"
-revision = "PIN_HF_COMMIT_BEFORE_RUN"
+revision = "32e28c05b47e33b6675d2670a1745c50a65e987a"
 training_method = "full_fine_tuning"
 max_length = 512
 dropout = 0.1
