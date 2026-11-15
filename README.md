@@ -3,9 +3,11 @@
 Reproducible Kaggle experiment comparing single-task and multi-task
 IndoBERTweet models for toxicity and polarization detection on IndoDiscourse.
 
-**Status:** the local first-stage notebook covers EDA, preprocessing, and
-diagnostic feature engineering. Training and evaluation remain planned. This
-repository does not contain IndoDiscourse, model weights, or experiment outputs.
+**Status:** the first stage is split into three private Kaggle notebooks for
+EDA, preprocessing, and feature extraction. The pinned source currently blocks
+preprocessing because one row has null text and the proposal requires a string.
+Training and evaluation remain planned. This repository contains no dataset,
+model weights, or run outputs.
 
 ## Research question
 
@@ -57,23 +59,15 @@ of the historical paper/card count remains uncertain.
 Please cite both the original IndoDiscourse paper and the dataset page. See
 [`CITATION.cff`](CITATION.cff) and the citation guidance in `docs/DATA.md`.
 
-## Local first stage
+## Kaggle notebook workflow
 
-Run [`notebooks/01_eda_preprocessing_feature_engineering.ipynb`](notebooks/01_eda_preprocessing_feature_engineering.ipynb)
-locally with Jupyter, pandas, NumPy, and Matplotlib. It downloads the pinned
-main JSONL on first use, verifies its SHA-256, reuses a local cache, and writes
-ignored local data and a schema-bearing manifest. Its saved cells contain no
-outputs. It does not create folds or load a tokenizer or model.
+Run the notebooks in order on Kaggle. Per-notebook metadata, upload commands,
+private output handoff, and the current preprocessing blocker are documented in
+[kaggle/notebooks/README.md](kaggle/notebooks/README.md). Notebook cells are
+saved without outputs. Kaggle runs have not been performed yet.
 
-## Kaggle
-
-The planned notebook path is
-[`kaggle/indodiscourse_mtl.ipynb`](kaggle/indodiscourse_mtl.ipynb). That file
-does not exist yet by design. Kaggle upload metadata is prepared in
-[`kaggle/kernel-metadata.json`](kaggle/kernel-metadata.json); its Kaggle account
-slug must be filled in before upload. The experiment requires Internet access
-to fetch the pinned upstream dataset and model unless an authorized input is
-attached.
+The existing [kaggle/kernel-metadata.json](kaggle/kernel-metadata.json) remains
+reserved for the later training notebook.
 
 ## Development
 

@@ -1,74 +1,54 @@
 # Dataset and model access
 
-## IndoDiscourse
+## IndoDiscourse source
 
-The canonical source is
-[`Exqrch/IndoDiscourse`](https://huggingface.co/datasets/Exqrch/IndoDiscourse)
-on Hugging Face. The experiment uses the dataset's `main` configuration only;
-the separate annotator-demographics configuration is not needed by the
-proposal's model inputs.
+Use only the canonical JSONL file from the public Hugging Face repository
+[Exqrch/IndoDiscourse](https://huggingface.co/datasets/Exqrch/IndoDiscourse):
 
-Before a run:
+- Configuration: main
+- Revision: 8af8c0f00b05633c05cc41fbd7650178ababc892
+- File: indotoxic2024_annotated_data_v2_final.jsonl
+- SHA-256: 94bb43546f5040a606a8d842694b7d490df043051377a6580e1e95ad2c7334e7
+- Expected source rows: 28,448
 
-1. Review the dataset card, the original paper, and the license/usage terms.
-2. Use the pinned dataset revision `8af8c0f00b05633c05cc41fbd7650178ababc892`
-   and record it for reported runs; do not use a moving branch.
-   The main JSONL SHA-256 is also pinned in `kaggle/config/experiment.toml`
-   and checked by the local first-stage notebook.
-3. Record the revision, file fingerprint, schema, actual row count, and the
-   result of the proposal's sample-construction audit in the run manifest.
-4. Keep the dataset files out of GitHub. Do not publish a Kaggle mirror unless
-   the dataset authors or maintainer confirm the redistribution rights.
+Do not load the separate 29-row annotator configuration or demographics. The
+notebooks download only this file into /tmp, verify its hash, and record
+runtime versions. Public access does not require an HF token. Do not create a
+Kaggle Dataset mirror or commit raw or derived data to GitHub.
 
-The Hugging Face page currently displays `Apache-2.0`. The paper also states
-that the dataset is for research on detecting and moderating toxic and
-polarizing content, rules out surveillance and profiling, and asks users to
-preserve its ethical guidelines when redistributing or modifying it. The
-license and those responsible-use conditions must be considered together.
+At the pinned revision, row index 10,295 has null text and label pair (0, 0).
+The proposal requires every text value to be a string and malformed data to
+halt processing. Notebook 01 reports the anomaly and limits exploratory
+analysis to valid rows. Notebook 02 writes a validation report containing only row indices and
+column names, plus a blocked manifest without creating a sample. Notebook 03 honors that status
+and does not tokenize. Do not coerce, drop, or otherwise resolve this row
+without an approved method amendment.
 
-At the pinned revision, the current dataset-server configuration sizes are
-28,448 rows for `main/main` and 29 for the separate `annotator/annotator`
-configuration, totaling 28,477 at dataset level. Only `main` is loaded. This
-observation does not establish what the historical paper or card meant by
-28,477 texts. Record actual counts and compare them with the proposal without
-forcing a match.
+The proposal's sample rules remain authoritative: strict majority per task;
+exclude a row if either task is tied; exclude an exact empty string only for
+label pair (0, 0); retain whitespace-only text, noise/spam rows, and duplicate
+rows. The group key uses NFKC, casefold, trim, and collapsed whitespace.
+Keep text_id only as provenance metadata, outside model inputs. Preserve original text as the only classifier input. Do not manually normalize
+emoji, slang, punctuation, URLs, profanity, or mixed language.
 
-The local validation found one method blocker in the pinned `main` file: row
-index 10,295 has a null `text` value and the label pair `(0, 0)`. The proposal
-requires every text value to be a string and says malformed rows halt
-processing. The notebook therefore stops at validation and does not coerce this
-value to an empty string or drop the row. Resume preprocessing only after the
-method specifies how to handle it.
+Review the dataset card, original paper, license, and responsible-use terms
+before sharing derived artifacts. The dataset card displays Apache-2.0; the
+paper also describes research-use and responsible-use restrictions. Consider
+those terms together. Cite the dataset and original paper; see CITATION.cff.
 
-## IndoBERTweet
+## IndoBERTweet tokenizer
 
-The planned model source is
-[`indolem/indobertweet-base-uncased`](https://huggingface.co/indolem/indobertweet-base-uncased).
-Pin its revision independently from the dataset. Its license and terms remain
-separate from this repository's MIT license.
+Feature extraction uses only the tokenizer from
+[indolem/indobertweet-base-uncased](https://huggingface.co/indolem/indobertweet-base-uncased),
+pinned at revision 32e28c05b47e33b6675d2670a1745c50a65e987a. The model
+revision and terms are separate from this repository's MIT license. EDA loads
+the tokenizer on CPU without model weights.
 
-## Citation
+## Private outputs
 
-Please cite the dataset repository and the original paper:
-
-> Susanto, L., Wijanarko, M. I., Pratama, P. A., Tang, Z., Akyas, F., Hong, T.,
-> Idris, I. K., Aji, A. F., & Wijaya, D. T. (2025). A multi-labeled dataset for
-> Indonesian discourse: Examining toxicity, polarization, and demographics
-> information. *Findings of the Association for Computational Linguistics: ACL
-> 2025*, 18863–18890. https://doi.org/10.18653/v1/2025.findings-acl.966
-
-## Local cache and outputs
-
-The local first-stage notebook caches the pinned main JSONL in `data/raw`
-and writes a derived JSONL and provenance manifest in `data/processed`.
-The source file SHA-256 is pinned in the experiment config and checked against
-the cache.
-Both locations are Git-ignored. The derived file retains original text, labels,
-group metadata and diagnostics, but no annotator IDs or demographics. Treat it
-as dataset content and do not publish it before redistribution rights are clear.
-
-## Outputs
-
-Do not copy raw text into GitHub or attach it to a public notebook output. Keep
-training logs, predictions, metrics, and checkpoints under the Kaggle working
-directory. Review derivative outputs before sharing them publicly.
+Notebook 01 may save aggregate reports and figures only. Notebook 02 may save
+a text-bearing processed sample after validation is resolved. Notebook 03 may
+save token arrays and split metadata. Keep kernels and outputs private until
+rights to share the derived artifacts are confirmed. Kaggle notebook outputs
+are the intermediate handoff; do not create a Kaggle Dataset. No notebook
+outputs or derived data are committed to GitHub.
