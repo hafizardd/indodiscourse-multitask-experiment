@@ -11,8 +11,10 @@ proposal's model inputs.
 Before a run:
 
 1. Review the dataset card, the original paper, and the license/usage terms.
-2. Pin the Hugging Face repository to an immutable commit revision. Do not use
-   a moving `main` branch in a reported run.
+2. Use the pinned dataset revision `8af8c0f00b05633c05cc41fbd7650178ababc892`
+   and record it for reported runs; do not use a moving branch.
+   The main JSONL SHA-256 is also pinned in `kaggle/config/experiment.toml`
+   and checked by the local first-stage notebook.
 3. Record the revision, file fingerprint, schema, actual row count, and the
    result of the proposal's sample-construction audit in the run manifest.
 4. Keep the dataset files out of GitHub. Do not publish a Kaggle mirror unless
@@ -24,9 +26,19 @@ polarizing content, rules out surveillance and profiling, and asks users to
 preserve its ethical guidelines when redistributing or modifying it. The
 license and those responsible-use conditions must be considered together.
 
-The proposal snapshot records 28,448 rows, while the paper and dataset card
-report 28,477 texts. Do not silently coerce one count to the other. Reconcile
-the selected dataset revision and document the observed count before training.
+At the pinned revision, the current dataset-server configuration sizes are
+28,448 rows for `main/main` and 29 for the separate `annotator/annotator`
+configuration, totaling 28,477 at dataset level. Only `main` is loaded. This
+observation does not establish what the historical paper or card meant by
+28,477 texts. Record actual counts and compare them with the proposal without
+forcing a match.
+
+The local validation found one method blocker in the pinned `main` file: row
+index 10,295 has a null `text` value and the label pair `(0, 0)`. The proposal
+requires every text value to be a string and says malformed rows halt
+processing. The notebook therefore stops at validation and does not coerce this
+value to an empty string or drop the row. Resume preprocessing only after the
+method specifies how to handle it.
 
 ## IndoBERTweet
 
@@ -44,6 +56,16 @@ Please cite the dataset repository and the original paper:
 > Indonesian discourse: Examining toxicity, polarization, and demographics
 > information. *Findings of the Association for Computational Linguistics: ACL
 > 2025*, 18863–18890. https://doi.org/10.18653/v1/2025.findings-acl.966
+
+## Local cache and outputs
+
+The local first-stage notebook caches the pinned main JSONL in `data/raw`
+and writes a derived JSONL and provenance manifest in `data/processed`.
+The source file SHA-256 is pinned in the experiment config and checked against
+the cache.
+Both locations are Git-ignored. The derived file retains original text, labels,
+group metadata and diagnostics, but no annotator IDs or demographics. Treat it
+as dataset content and do not publish it before redistribution rights are clear.
 
 ## Outputs
 
