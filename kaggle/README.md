@@ -1,19 +1,16 @@
-# Kaggle kernel scaffold
+# Kaggle notebooks
 
-The Kaggle kernel metadata is prepared, but the notebook has intentionally not
-been created yet. The Kaggle API is not authenticated in this environment, so
-no Kaggle kernel has been published.
+The first stage uses three separate private kernels. See
+[notebooks/README.md](notebooks/README.md) for run order, upload commands,
+private output handoff, and the current validation blocker.
 
-Before uploading:
+Each notebook folder contains its own notebook and kernel-metadata.json.
+Metadata uses a Kaggle username placeholder, private visibility, internet
+enabled, GPU disabled, and no dataset sources. Notebook 03 references the
+private output of notebook 02. The top-level kernel-metadata.json remains
+reserved for the future training notebook.
 
-1. Add `indodiscourse_mtl.ipynb` and the experiment modules in this folder.
-2. Replace `YOUR_KAGGLE_USERNAME` in `kernel-metadata.json` with the actual
-   Kaggle username. The GitHub owner `hafizardd` does not imply the Kaggle
-   username.
-3. Pin dataset and model revisions in `config/experiment.toml`.
-4. Confirm authorized access to the data and set Kaggle Internet or an approved
-   input source.
-5. Push from this folder with `kaggle kernels push -p kaggle/`.
-
-The kernel is marked private until code, data access, and outputs are ready for
-public release.
+The notebooks download only the pinned canonical main JSONL into /tmp and
+verify its SHA-256. No Kaggle Dataset mirror is used. Outputs are private
+notebook artifacts and are not committed to this repository. Kaggle runs have
+not been performed yet.
