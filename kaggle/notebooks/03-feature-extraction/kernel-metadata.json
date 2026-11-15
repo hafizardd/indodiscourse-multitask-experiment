@@ -1,0 +1,17 @@
+{
+  "id": "YOUR_KAGGLE_USERNAME/indodiscourse-03-feature-extraction",
+  "title": "IndoDiscourse 03 - Feature Extraction",
+  "code_file": "indodiscourse_03_feature_extraction.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": "true",
+  "enable_gpu": "false",
+  "enable_internet": "true",
+  "machine_shape": "",
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": [
+    "YOUR_KAGGLE_USERNAME/indodiscourse-02-preprocessing"
+  ],
+  "model_sources": []
+}
