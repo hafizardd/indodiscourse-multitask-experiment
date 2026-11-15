@@ -21,3 +21,4 @@ Describe the change and why it is needed.
 - [ ] Data and model sources are cited and their revisions are recorded.
 - [ ] Documentation and configuration match the change.
 - [ ] Each commit contains one small, logically complete change; independent changes use separate commits.
+- [ ] Preserve the focused commits with **Rebase and merge** after checks pass.
